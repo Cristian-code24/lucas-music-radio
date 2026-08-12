@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { PLAYER_STATUS } from '../../utils/helpers';
 import radioConfig from '../../config/radio';
 import useRadioMetadata from '../../hooks/useRadioMetadata';
@@ -21,6 +22,28 @@ export default function Hero({
 }) {
   const isError = status === PLAYER_STATUS.ERROR;
   const { songTitle } = useRadioMetadata(status);
+
+  // Update OS media session metadata (lock screen info)
+  useEffect(() => {
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = new window.MediaMetadata({
+        title: songTitle || 'Radio en vivo',
+        artist: radioConfig.name,
+        album: radioConfig.tagline,
+        artwork: [
+          { src: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+          { src: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+        ],
+      });
+
+      navigator.mediaSession.setActionHandler('play', () => {
+        if (status !== PLAYER_STATUS.PLAYING) onTogglePlay();
+      });
+      navigator.mediaSession.setActionHandler('pause', () => {
+        if (status === PLAYER_STATUS.PLAYING) onTogglePlay();
+      });
+    }
+  }, [songTitle, status, onTogglePlay]);
 
   return (
     <section className="hero" id="inicio" aria-label="Reproductor principal">
