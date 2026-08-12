@@ -12,9 +12,10 @@ export default async function handler(req, res) {
     // SHOUTcast v1 metadata endpoint
     const url = 'http://uk21freenew.listen2myradio.com:30266/7.html';
     
-    // Fetch directly from the HTTP server (Serverless Functions can do this)
+    // Fetch directly from the HTTP server with a 3 second timeout
     const response = await fetch(url, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (Vercel Serverless)' }
+      headers: { 'User-Agent': 'Mozilla/5.0 (Vercel Serverless)' },
+      signal: AbortSignal.timeout(3000)
     });
     
     if (!response.ok) {

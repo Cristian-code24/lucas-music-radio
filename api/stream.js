@@ -8,9 +8,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Fetch the user's public Listen2MyRadio page to scrape the dynamic stream token
+    // Fetch the user's public Listen2MyRadio page to scrape the dynamic stream token with 3s timeout
     const response = await fetch('https://lucasmusic.radio12345.com/', {
-      headers: { 'User-Agent': 'Mozilla/5.0 (Vercel Edge Proxy)' }
+      headers: { 'User-Agent': 'Mozilla/5.0 (Vercel Edge Proxy)' },
+      signal: AbortSignal.timeout(3000)
     });
     
     const html = await response.text();
