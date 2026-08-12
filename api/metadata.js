@@ -24,7 +24,8 @@ export default async function handler(req, res) {
     const text = await response.text();
     
     // The response looks like: <HTML>...<body>listeners,1,peak,max,unique,bitrate,Song Title</body></html>
-    const bodyMatch = text.match(/<body>(.*?)<\/body>/);
+    // SHOUTcast sometimes injects newlines, so we must use /s (dotAll) flag
+    const bodyMatch = text.match(/<body>(.*?)<\/body>/s);
     
     if (bodyMatch && bodyMatch[1]) {
       const parts = bodyMatch[1].split(',');
