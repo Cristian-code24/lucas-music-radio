@@ -1,5 +1,6 @@
 import { PLAYER_STATUS } from '../../utils/helpers';
 import radioConfig from '../../config/radio';
+import useRadioMetadata from '../../hooks/useRadioMetadata';
 import LiveIndicator from '../LiveIndicator/LiveIndicator';
 import PlayButton from '../PlayButton/PlayButton';
 import AudioVisualizer from '../AudioVisualizer/AudioVisualizer';
@@ -19,6 +20,7 @@ export default function Hero({
   useFallback,
 }) {
   const isError = status === PLAYER_STATUS.ERROR;
+  const { songTitle } = useRadioMetadata(status);
 
   return (
     <section className="hero" id="inicio" aria-label="Reproductor principal">
@@ -91,7 +93,7 @@ export default function Hero({
         </div>
 
         {/* Now Playing */}
-        <NowPlaying status={status} />
+        <NowPlaying status={status} title={songTitle} />
       </div>
     </section>
   );
