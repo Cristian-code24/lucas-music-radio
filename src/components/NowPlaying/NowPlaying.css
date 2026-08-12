@@ -1,0 +1,109 @@
+.now-playing {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  max-width: 380px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: now-playing-enter 0.6s ease forwards 0.3s;
+}
+
+.now-playing__icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--color-blue-electric);
+}
+
+.now-playing__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Animated equalizer bars */
+.now-playing__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 20px;
+}
+
+.now-playing__bars span {
+  width: 3px;
+  background: var(--color-cyan);
+  border-radius: 1px;
+  animation: eq-bar 1s ease-in-out infinite;
+}
+
+.now-playing__bars span:nth-child(1) { height: 40%; animation-delay: 0s; }
+.now-playing__bars span:nth-child(2) { height: 70%; animation-delay: 0.15s; }
+.now-playing__bars span:nth-child(3) { height: 50%; animation-delay: 0.3s; }
+.now-playing__bars span:nth-child(4) { height: 30%; animation-delay: 0.45s; }
+
+.now-playing__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.now-playing__label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.now-playing__title {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.now-playing__artist {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.now-playing--active .now-playing__icon {
+  background: rgba(6, 182, 212, 0.15);
+}
+
+@keyframes eq-bar {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes now-playing-enter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .now-playing {
+    padding: var(--space-sm) var(--space-md);
+    max-width: 320px;
+  }
+}

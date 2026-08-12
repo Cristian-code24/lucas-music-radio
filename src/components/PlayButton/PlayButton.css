@@ -1,0 +1,221 @@
+.play-button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: var(--z-elevated);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Glow behind button */
+.play-button__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+  pointer-events: none;
+}
+
+.play-button:hover .play-button__glow {
+  opacity: 1;
+}
+
+.play-button--playing .play-button__glow {
+  opacity: 1;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(124, 58, 237, 0.1) 50%, transparent 70%);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* Inner circle */
+.play-button__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1.5px solid var(--glass-border);
+  box-shadow: var(--glass-shadow),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-base);
+  z-index: 2;
+}
+
+.play-button:hover .play-button__inner {
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: var(--glass-shadow),
+              0 0 20px rgba(59, 130, 246, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: scale(1.05);
+}
+
+.play-button:active .play-button__inner {
+  transform: scale(0.97);
+  transition-duration: 100ms;
+}
+
+.play-button--playing .play-button__inner {
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: var(--glass-shadow),
+              0 0 30px rgba(59, 130, 246, 0.2),
+              0 0 60px rgba(124, 58, 237, 0.1);
+}
+
+.play-button--connecting .play-button__inner {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.play-button--error .play-button__inner {
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* Icons */
+.play-button__icon {
+  width: 36px;
+  height: 36px;
+  color: var(--color-text);
+  transition: all var(--transition-base);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));
+}
+
+.play-button:not(.play-button--playing) .play-button__icon {
+  margin-left: 4px; /* visual centering for play triangle */
+}
+
+/* Spinner */
+.play-button__spinner {
+  width: 36px;
+  height: 36px;
+  color: var(--color-warning);
+  animation: spin 1s linear infinite;
+}
+
+/* Label */
+.play-button__label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-base);
+  white-space: nowrap;
+}
+
+.play-button:hover .play-button__label {
+  color: var(--color-text);
+}
+
+.play-button--playing .play-button__label {
+  color: var(--color-cyan-light);
+}
+
+.play-button--connecting .play-button__label {
+  color: var(--color-warning);
+}
+
+/* Ripple rings */
+.play-button__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.play-button__ring--1 {
+  animation: ripple 3s ease-out infinite;
+}
+
+.play-button__ring--2 {
+  animation: ripple 3s ease-out infinite 1s;
+}
+
+.play-button__ring--3 {
+  animation: ripple 3s ease-out infinite 2s;
+}
+
+@keyframes ripple {
+  0% {
+    width: 96px;
+    height: 96px;
+    opacity: 0.5;
+  }
+  100% {
+    width: 220px;
+    height: 220px;
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translate(-50%, -60%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -60%) scale(1.1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .play-button__inner {
+    width: 80px;
+    height: 80px;
+  }
+
+  .play-button__icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .play-button__spinner {
+    width: 30px;
+    height: 30px;
+  }
+
+  .play-button__ring {
+    width: 80px;
+    height: 80px;
+  }
+
+  @keyframes ripple {
+    0% {
+      width: 80px;
+      height: 80px;
+      opacity: 0.5;
+    }
+    100% {
+      width: 180px;
+      height: 180px;
+      opacity: 0;
+    }
+  }
+}

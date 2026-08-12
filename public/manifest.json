@@ -1,0 +1,17 @@
+{
+  "name": "Lucas Music",
+  "short_name": "LucasMusic",
+  "description": "Tu emisora online de música y entretenimiento",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080818",
+  "theme_color": "#080818",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

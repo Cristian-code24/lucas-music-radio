@@ -1,0 +1,79 @@
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  background: rgba(100, 116, 139, 0.15);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  transition: all var(--transition-base);
+}
+
+.live-indicator__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+}
+
+.live-indicator__text {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: color var(--transition-base);
+}
+
+/* Live state */
+.live-indicator--live {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.live-indicator--live .live-indicator__dot {
+  background: var(--color-live);
+  box-shadow: 0 0 8px var(--color-live-glow), 0 0 20px var(--color-live-glow);
+  animation: live-pulse 2s ease-in-out infinite;
+}
+
+.live-indicator--live .live-indicator__text {
+  color: var(--color-live);
+}
+
+/* Connecting state */
+.live-indicator--connecting {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.live-indicator--connecting .live-indicator__dot {
+  background: var(--color-warning);
+  animation: connecting-blink 1s ease-in-out infinite;
+}
+
+.live-indicator--connecting .live-indicator__text {
+  color: var(--color-warning);
+}
+
+@keyframes live-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes connecting-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
