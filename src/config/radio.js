@@ -13,7 +13,7 @@ const radioConfig = {
   frequency: 'Web — Streaming 24/7',
 
   // Stream configuration
-  streamUrl: import.meta.env.VITE_RADIO_STREAM_URL || 'https://uk21freenew.listen2myradio.com/live.mp3?typeportmount=s1_30266_stream_394169591',
+  streamUrl: import.meta.env.VITE_RADIO_STREAM_URL || '/api/stream',
 
   // Listener links (alternative access points)
   listenerLinks: [
